@@ -32,6 +32,7 @@ authorization requirement.
 User Interface:
 
 Login Page:
+![example image](pictures/Login_Page.jpg)
 
 Home Page:
 
