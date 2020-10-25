@@ -32,15 +32,15 @@ authorization requirement.
 User Interface:
 
 Create Account Page:
-![Drawing](pictures/Create_Account_Drawing.JPG)
+![Drawing](pictures/Create_Account_Drawing.jpg)
 ![HTML](pictures/Create_Account_Page.JPG)
 
 Login Page:
-![Drawing](pictures/Login_Drawing.JPG)
+![Drawing](pictures/Login_Drawing.jpg)
 ![HTML](pictures/Login_Page.JPG)
 
 Home Page:
-![Drawing](pictures/Home_Drawing.JPG)
+![Drawing](pictures/Home_Drawing.jpg)
 ![HTML](pictures/Home_Page.JPG)
 
 Listings Page:
