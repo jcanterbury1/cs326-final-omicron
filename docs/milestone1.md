@@ -31,10 +31,17 @@ authorization requirement.
 
 User Interface:
 
+Create Account Page:
+![Drawing](pictures/Create_Account_Drawing.JPG)
+![HTML](pictures/Create_Account_Page.JPG)
+
 Login Page:
+![Drawing](pictures/Login_Drawing.JPG)
 ![HTML](pictures/Login_Page.JPG)
 
 Home Page:
+![Drawing](pictures/Home_Drawing.JPG)
+![HTML](pictures/Home_Page.JPG)
 
 Listings Page:
 
