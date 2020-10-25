@@ -32,7 +32,7 @@ authorization requirement.
 User Interface:
 
 Create Account Page:
-![Drawing](pictures/Create Account_Drawing.jpg)
+![Drawing](pictures/Create_Account_Drawing.jpg)
 ![HTML](pictures/Create_Account_Page.JPG)
 
 Login Page:
