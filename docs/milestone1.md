@@ -31,15 +31,15 @@ authorization requirement.
 
 User Interface:
 
-Create Account Page:
+Create Account Page (Ryan):
 ![Drawing](pictures/Create_Account_Drawing.jpg)
 ![HTML](pictures/Create_Account_Page.JPG)
 
-Login Page:
+Login Page (Ryan):
 ![Drawing](pictures/Login_Drawing.jpg)
 ![HTML](pictures/Login_Page.JPG)
 
-Home Page:
+Home Page (Ryan):
 ![Drawing](pictures/Home_Drawing.jpg)
 ![HTML](pictures/Home_Page.JPG)
 
