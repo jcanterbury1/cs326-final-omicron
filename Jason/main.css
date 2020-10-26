@@ -1,0 +1,23 @@
+.container {
+  text-align: center;
+}
+
+.reviews-container {
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.list-group-item {
+  background-color: black;
+  padding: 1px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.review-container {
+  background-color: white;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
