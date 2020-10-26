@@ -11,7 +11,7 @@ Ryan Loofbourrow - Ryan-Loofy
 
 Innovation Idea:
 Our project idea is a page for off campus students in Amherst to submit reviews
-on landlords, apartments, grocery stores, laundromats etc and then search
+on apartments, grocery stores, laundromats, gyms etc and then search
 reviews. A similar application would be Yelp where reviewers write reviews on
 different businesses and people can search those reviews. This targets tourists
 and people who are new to an area. Another similar application would be Rate My
@@ -21,13 +21,12 @@ students. Our idea combines these two audiences and targets university students
 who are new to an area.
 
 Important Components:
-We will allow users to read and write reviews as well as ask questions on
-different categories which will cover the user interactivity requirement. Each
-category will have a list of places sorted by the number of likes and each
-place will have reviews and questions which will cover the data types
-requirement. Users will be allowed to create accounts and log in and out to
-read and write these reviews which will cover the user authentication and
-authorization requirement.
+We will allow users to read and write reviews on different categories which
+will cover the user interactivity requirement. Each category will have a list
+of places sorted by the number of likes and each place will have reviews and
+questions which will cover the data types requirement. Users will be allowed to
+create accounts and log in and out to read and write these reviews which will
+cover the user authentication and authorization requirement.
 
 User Interface:
 
