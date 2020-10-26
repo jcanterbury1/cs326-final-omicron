@@ -50,11 +50,11 @@ Reviews Page (Jason):
 ![Drawing](pictures/reviews-wireframe.png)
 ![HTML](pictures/reviews-page.png)
 
-Review Form Page:
+Review Form Page (Nadia):
 ![Drawing](pictures/housing-wireframe.png)
 ![HTML](pictures/housing-write-review-page.html)
-![Drawing](pictures/grocery-store-wireframe.png)
-![HTML](pictures/grocery-store-write-review-page.html)
+![Drawing](pictures/grocery-wireframe.png)
+![HTML](pictures/grocery-write-review-page.html)
 ![Drawing](pictures/laundromat-wireframe.png)
 ![HTML](pictures/laundromat-write-review-page.html)
 ![Drawing](pictures/gym-wireframe.png)
