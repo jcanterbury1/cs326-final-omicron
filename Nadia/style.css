@@ -1,0 +1,39 @@
+div.dollars {
+    width: 270px;
+    display: inline-block;
+  }
+  
+  input.dollar { display: none; }
+  
+  label.dollar {
+    float: right;
+    padding: 10px;
+    font-size: 36px;
+    color: #444;
+    transition: all .2s;
+  }
+  
+  input.dollar:checked ~ label.dollar:before {
+    content: '$';
+    color: #FD4;
+    transition: all .25s;
+  }
+  .col-xs-2{
+    padding-bottom: 10px;
+  }
+  h1,span{
+      padding-top: 10%;
+      padding-bottom: 5%;
+  }
+  span{
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  
+  
+  label.dollar:hover { transform: rotate(-15deg) scale(1.3); }
+  
+  label.dollar:before {
+    content: '$';
+    font-family: FontAwesome;
+  }
