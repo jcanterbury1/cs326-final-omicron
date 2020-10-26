@@ -23,10 +23,10 @@ who are new to an area.
 Important Components:
 We will allow users to read and write reviews on different categories which
 will cover the user interactivity requirement. Each category will have a list
-of places sorted by the number of likes and each place will have reviews and
-questions which will cover the data types requirement. Users will be allowed to
-create accounts and log in and out to read and write these reviews which will
-cover the user authentication and authorization requirement.
+of places sorted by the number of likes and each place will have info and reviews
+which will cover the data types requirement. Users will be allowed to create
+accounts and log in and out to read and write these reviews which will cover the
+user authentication and authorization requirement.
 
 User Interface:
 
