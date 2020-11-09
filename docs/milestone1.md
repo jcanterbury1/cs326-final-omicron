@@ -11,7 +11,7 @@ Ryan Loofbourrow - Ryan-Loofy
 
 Innovation Idea:
 Our project idea is a page for off campus students in Amherst to submit reviews
-on landlords, apartments, grocery stores, laundromats etc and then search
+on apartments, grocery stores, laundromats, gyms etc and then search
 reviews. A similar application would be Yelp where reviewers write reviews on
 different businesses and people can search those reviews. This targets tourists
 and people who are new to an area. Another similar application would be Rate My
@@ -21,34 +21,42 @@ students. Our idea combines these two audiences and targets university students
 who are new to an area.
 
 Important Components:
-We will allow users to read and write reviews as well as ask questions on
-different categories which will cover the user interactivity requirement. Each
-category will have a list of places sorted by the number of likes and each
-place will have reviews and questions which will cover the data types
-requirement. Users will be allowed to create accounts and log in and out to
-read and write these reviews which will cover the user authentication and
-authorization requirement.
+We will allow users to read and write reviews on different categories which
+will cover the user interactivity requirement. Each category will have a list
+of places sorted by the number of likes and each place will have info and reviews
+which will cover the data types requirement. Users will be allowed to create
+accounts and log in and out to read and write these reviews which will cover the
+user authentication and authorization requirement.
 
 User Interface:
 
-Create Account Page:
+Create Account Page (Ryan):
 ![Drawing](pictures/Create_Account_Drawing.jpg)
 ![HTML](pictures/Create_Account_Page.JPG)
 
-Login Page:
+Login Page (Ryan):
 ![Drawing](pictures/Login_Drawing.jpg)
 ![HTML](pictures/Login_Page.JPG)
 
-Home Page:
+Home Page (Ryan):
 ![Drawing](pictures/Home_Drawing.jpg)
 ![HTML](pictures/Home_Page.JPG)
 
-Listings Page:
+Listings Page (Jason):
+![Drawing](pictures/listings-wireframe.png)
+![HTML](pictures/listings-page.png)
 
-Reviews Page:
+Reviews Page (Jason):
+![Drawing](pictures/reviews-wireframe.png)
+![HTML](pictures/reviews-page.png)
 
-Post Form Page:
+Review Form Page (Nadia):
 
-Review Form Page:
-
-Question Form Page:
+![Drawing](pictures/housing-wireframe.png)
+![HTML](pictures/housing-write-review-html.png)
+![Drawing](pictures/grocery-wireframe.png)
+![HTML](pictures/grocery-write-review-html.png)
+![Drawing](pictures/laundromat-wireframe.png)
+![HTML](pictures/laundromat-write-review-html.png)
+![Drawing](pictures/gym-wireframe.png)
+![HTML](pictures/gym-write-review-html.png)
