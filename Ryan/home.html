@@ -10,37 +10,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="collapse navbar-collapse" id="navbarText">
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="collapse navbar-collapse">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item active" type="submit">
-                  <a class="nav-link" onclick="location.href = '/cs326-final-omicron/Ryan/home.html'"; onmouseover="" style="cursor: pointer;">Home</a>
+                <li class="nav-item active">
+                  <a class="nav-link" href="../Ryan/home.html">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" onclick="location.href = '/cs326-final-omicron/Jason/listings.html'"; onmouseover="" style="cursor: pointer;">Housing</a>
+                  <a class="nav-link" href="../Jason/housing-listings.html">Housing</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" onclick="location.href = '/cs326-final-omicron/Ryan/home.html'"; onmouseover="" style="cursor: pointer;">Grocery Stores</a>
+                  <a class="nav-link" href="../Jason/grocery-listings.html">Grocery Stores</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" onclick="location.href = '/cs326-final-omicron/Ryan/home.html'"; onmouseover="" style="cursor: pointer;">Laundromats</a>
+                  <a class="nav-link" href="../Jason/laundromat-listings.html">Laundromats</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" onclick="location.href = '/cs326-final-omicron/Ryan/home.html'"; onmouseover="" style="cursor: pointer;">Gyms</a>
+                  <a class="nav-link" href="../Jason/gym-listings.html">Gyms</a>
                 </li>
               </ul>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" onclick="location.href = '/cs326-final-omicron/Ryan/login.html'"; onmouseover="" style="cursor: pointer;">Log In</a>
+                  <a class="nav-link" href="../Ryan/login.html" onmouseover="" style="cursor: pointer;">Log In</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" onclick="location.href = '/cs326-final-omicron/Ryan/login.html'"; onmouseover="" style="cursor: pointer;">Sign Out</a>
+                  <a class="nav-link" href="../Ryan/login.html">Sign Out</a>
                 </li>
               </ul>
             </div>
           </nav>
         <div id="user-input" class="row">
-            <input type="text" name="search" placeholder="Search.." class="col-11">
+            <input type="text" name="search" placeholder="Search.." class="col-10" id="searchbar">
             <!-- <label for="x">x: </label><input type="number" id="x" min="1" max="15" />
             <label for="y">y: </label><input type="number" id="y" min="1" max="15" /> -->
             <select id="select" class="col-1">
@@ -49,32 +49,35 @@
                 <option value="grocery">Grocery</option>
                 <option value="Laundy">Laundry</option>
             </select>
+            <button class="col-1" onclick="search()">Search</button>
         </div>
         <div class="row">
-            <button class="col-sm home-page-box">
+            <button class="col-sm home-page-box" onclick="location.href = '../Jason/housing-listings.html'";>
                 Top Housing 
             </button>
-            <button class="col-sm home-page-box">
+            <button class="col-sm home-page-box" onclick="location.href = '../Jason/gym-listings.html'";>
                 Top Gyms
             </button>
-            <button class="col-sm home-page-box">
+            <button class="col-sm home-page-box" onclick="location.href = '../Jason/grocery-listings.html'";>
                 Top Grocery
             </button>
         </div>
         <h1 class="margTop">Trending this week</h1>
-        <div class="home-page-box2">
+        <div>
             <div class="row">
-                <div class="card col">
-                    <img src="https://i.pinimg.com/originals/77/c4/d5/77c4d536db08d773f1aaa3d634425a14.jpg" alt="Avatar" style="width:100%">
+              <div class="col-1"></div>
+                <div class="card col-5">
+                    <img src="https://i.pinimg.com/originals/77/c4/d5/77c4d536db08d773f1aaa3d634425a14.jpg" alt="Avatar" style="width:100%" 
+                    onclick="location.href = '../Jason/housing-read-reviews.html'"; onmouseover="" style="cursor: pointer;">
                     <div class="container">
                       <h4><b>24 Ryan Rd</b></h4>
                       <p>125 Likes</p>
                       <p>31 Reviews</p>
                     </div>
                   </div>
-                  <div class="col-1"></div>
-                  <div class="card col">
-                    <img src="https://i.ytimg.com/vi/WPkecyzCLMI/maxresdefault.jpg" alt="Avatar" style="width:100%">
+                  <div class="card col-5">
+                    <img src="https://i.ytimg.com/vi/WPkecyzCLMI/maxresdefault.jpg" alt="Avatar" style="width:100%"
+                    onclick="location.href = '../Jason/housing-read-reviews.html'"; onmouseover="" style="cursor: pointer;">
                     <div class="container">
                         <h4><b>1066 Jason Way</b></h4>
                         <p>101 Likes</p>
@@ -83,17 +86,19 @@
                   </div>
             </div>
             <div class="row">
-                <div class="card col">
-                    <img src="https://www.michiganradio.org/sites/michigan/files/202003/grocery_store_Unsplash.jpg" alt="Avatar" style="width:100%">
+              <div class="col-1"></div> 
+                <div class="card col-5">
+                    <img src="https://www.michiganradio.org/sites/michigan/files/202003/grocery_store_Unsplash.jpg" alt="Avatar" style="width:100%"
+                    onclick="location.href = '../Jason/grocery-read-reviews.html'"; onmouseover="" style="cursor: pointer;">
                     <div class="container">
                         <h4><b>65 Grocery St</b></h4>
                         <p>65 Likes</p>
                         <p>11 Reviews</p>
                   </div>
                 </div>
-                  <div class="col-1"></div>
-                  <div class="card col">
-                    <img src="https://s7d2.scene7.com/is/image/TWCNews/brooklyn-gym-generic-file-covidjpg" alt="Avatar" style="width:100%">
+                  <div class="card col-5">
+                    <img src="https://s7d2.scene7.com/is/image/TWCNews/brooklyn-gym-generic-file-covidjpg" alt="Avatar" style="width:100%"
+                    onclick="location.href = '../Jason/gym-read-reviews.html'"; onmouseover="" style="cursor: pointer;">
                     <div class="container">
                       <h4><b>11 Gym Rd</b></h4>
                       <p>13 Likes</p>
