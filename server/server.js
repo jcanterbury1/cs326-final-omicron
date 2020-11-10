@@ -12,54 +12,54 @@ app.get('/', (req, res) => {
 });
 //   curl -d '{ "value" : "12" }' -H "Content-Type: application/json" http://localhost:3000/read/x
 app.get('/housing/new', (req, res) => {
-    const k = req.query.key;
-    const v = req.query.value;
-    datastore[k] = v;
-    console.log(`Set ${k} to ${v}`);
-    res.send('Set.');
+  const k = req.query.key;
+  const v = req.query.value;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Set.');
 });
 app.get('/gym/new', (req, res) => {
-    const k = req.query.key;
-    const v = req.query.value;
-    datastore[k] = v;
-    console.log(`Set ${k} to ${v}`);
-    res.send('Set.');
+  const k = req.query.key;
+  const v = req.query.value;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Set.');
 });
 app.get('/grocery/new', (req, res) => {
-    const k = req.query.key;
-    const v = req.query.value;
-    datastore[k] = v;
-    console.log(`Set ${k} to ${v}`);
-    res.send('Set.');
+  const k = req.query.key;
+  const v = req.query.value;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Set.');
 });
 app.get('/laundromat/new', (req, res) => {
-    const k = req.query.key;
-    const v = req.query.value;
-    datastore[k] = v;
-    console.log(`Set ${k} to ${v}`);
-    res.send('Set.');
+  const k = req.query.key;
+  const v = req.query.value;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Set.');
 });
 app.get('/review/new', (req, res) => {
-    const k = req.query.key;
-    const v = req.query.value;
-    datastore[k] = v;
-    console.log(`Set ${k} to ${v}`);
-    res.send('Set.');
+  const k = req.query.key;
+  const v = req.query.value;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Set.');
 });
 app.get('/user/register', (req, res) => {
-    const k = req.query.key;
-    const v = req.query.value;
-    datastore[k] = v;  
-    console.log(`Set ${k} to ${v}`);
-    res.send('Set.');
+  const k = req.query.key;
+  const v = req.query.value;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Set.');
 });
-//housing write review 
+//housing write review
 app.get('/user/register', (req, res) => {
-    const k = req.query.key;
-    const v = req.query.value;
-    datastore[k] = v;  
-    console.log(`Set ${k} to ${v}`);
-    res.send('Set.');
+  const k = req.query.key;
+  const v = req.query.value;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Set.');
 });
 
 // app.get('/user/login', (req, res) => {
@@ -73,15 +73,15 @@ let randomEmail = faker.internet.email(); // Kassandra.Haley@erich.biz
 let randomCard = faker.helpers.createCard(); // random contact card containing many propert
 
 app.get('/search/:key', (req, res) => {
-    const k = req.params['key'];
-    const v = datastore[k];
-    res.send(`key = ${k}, value = ${randomName, randomEmail, randomCard}`);
-    // console.log(randomName, randomEmail, randomCard);
+  const k = req.params['key'];
+  const v = datastore[k];
+  res.send(`key = ${k}, value = ${randomName, randomEmail, randomCard}`);
+  // console.log(randomName, randomEmail, randomCard);
 });
 app.get('/reviews/:key', (req, res) => {
-    const k = req.params['key'];
-    const v = datastore[k];
-    res.send(`key = ${k}, value = ${randomName, randomEmail, randomCard}`);
+  const k = req.params['key'];
+  const v = datastore[k];
+  res.send(`key = ${k}, value = ${randomName, randomEmail, randomCard}`);
 });
 // app.get('/read', (req, res) => {
 //     const k = req.query.key;
@@ -95,15 +95,13 @@ app.get('/reviews/:key', (req, res) => {
 // });
 //   curl -d '{ "key" : "x", "value" : "12" }' -H "Content-Type: application/json" http://localhost:3000/pcreate
 app.get('/writeReview', (req, res) => {
-    const k = req.query["name"];
-    const v = req.query["price"];
-    datastore[k] = v;
-    console.log(`Set ${k} to ${v}, body = ${JSON.stringify(req.query)}`);
-    res.send('Set.');
+  const k = req.query["name"];
+  const v = req.query["price"];
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}, body = ${JSON.stringify(req.query)}`);
+  res.send('Set.');
 });
 /*app.get('*', (req, res) => {
     res.send('NO FOOL');
 });*/
-app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`);
-});
+app.listen(process.env.PORT || port);
