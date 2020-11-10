@@ -1,5 +1,5 @@
-
 'use strict';
+
 const express = require('express');
 const app = express();
 app.use(express.json()); // lets you handle JSON input
@@ -14,46 +14,46 @@ let faker = require('faker');
 //   curl -d '{ "value" : "12" }' -H "Content-Type: application/json" http://localhost:3000/read/x
 
 app.get('/housing/new', (req, res) => {
-    const k = req.query.address;
-    const v = req.query.value;
-    datastore[k] = v;
-    console.log(`Set ${k} to ${v}`);
-    res.send('Review Written.');
+  const k = req.query.address;
+  const v = req.query.value;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Review Written.');
 });
 app.get('/gym/new', (req, res) => {
-    const k = req.query.name;
-    const v = req.query.value;
-    datastore[k] = v;
-    console.log(`Set ${k} to ${v}`);
-    res.send('Review Written.');
+  const k = req.query.name;
+  const v = req.query.value;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Review Written.');
 });
 app.get('/grocery/new', (req, res) => {
-    const k = req.query.name;
-    const v = req.query.value;
-    datastore[k] = v;
-    console.log(`Set ${k} to ${v}`);
-    res.send('Review Written.');
+  const k = req.query.name;
+  const v = req.query.value;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Review Written.');
 });
 app.get('/laundromat/new', (req, res) => {
-    const k = req.query.name;
-    const v = req.query.value;
-    datastore[k] = v;
-    console.log(`Set ${k} to ${v}`);
-    res.send('Review Written.');
+  const k = req.query.name;
+  const v = req.query.value;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Review Written.');
 });
 app.get('/review/new', (req, res) => {
-    const k = req.query.review;
-    const v = req.query.object;
-    datastore[k] = v;
-    console.log(`Set ${k} to ${v}`);
-    res.send('Review Written.');
+  const k = req.query.review;
+  const v = req.query.object;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Review Written.');
 });
 app.get('/user/register', (req, res) => {
-    const k = req.query.username;
-    const v = req.query.password;
-    datastore[k] = v;  
-    console.log(`Set ${k} to ${v}`);
-    res.send('Account created.');
+  const k = req.query.username;
+  const v = req.query.password;
+  datastore[k] = v;
+  console.log(`Set ${k} to ${v}`);
+  res.send('Account created.');
 });
 
 let randomName = faker.name.findName(); // Rowan Nikolaus
@@ -62,35 +62,35 @@ let randomCard = faker.helpers.createCard(); // random contact card containing m
 let randomAddress = faker.address.streetAddress();
 
 app.get('/user/login', (req, res) => {
-    const k = req.params['username'];
-    const v = datastore[k];
-    console.log("User: " +k +" logged in.");
-    res.send(`username = ${randomName}, details = ${randomEmail}`);
+  const k = req.params['username'];
+  const v = datastore[k];
+  console.log("User: " + k + " logged in.");
+  res.send(`username = ${randomName}, details = ${randomEmail}`);
 });
 
 app.get('/user/updateUsername', (req, res) => {
-    const k = req.params['old_username'];
-    datastore[k] = req.params['new_username'];
-    console.log("User: " +k +" updated.");
-    res.send(`username = ${randomName}, new_username = ${randomEmail}`);
+  const k = req.params['old_username'];
+  datastore[k] = req.params['new_username'];
+  console.log("User: " + k + " updated.");
+  res.send(`username = ${randomName}, new_username = ${randomEmail}`);
 });
 
 app.get('/user/deleteAccount', (req, res) => {
-    const k = req.params['username'];
-    datastore[k] = null;
-    console.log("User: " +k +" deleted.");
-    res.send(`username = ${randomName} deleted.`);
+  const k = req.params['username'];
+  datastore[k] = null;
+  console.log("User: " + k + " deleted.");
+  res.send(`username = ${randomName} deleted.`);
 });
 
 app.get('/search/:item', (req, res) => {
-    const k = req.params['name'];
-    const v = datastore[k];
-    res.send(`item = ${k}, value = ${randomCard}`);
+  const k = req.params['name'];
+  const v = datastore[k];
+  res.send(`item = ${k}, value = ${randomCard}`);
 });
 app.get('/reviews/:item', (req, res) => {
-    const k = req.params['name'];
-    const v = datastore[k];
-    res.send(`item = ${k}, reviews = ${randomCard}`);
+  const k = req.params['name'];
+  const v = datastore[k];
+  res.send(`item = ${k}, reviews = ${randomCard}`);
 });
 app.get('/writeReview', (req, res) => {
   const k = req.query["name"];
@@ -100,30 +100,30 @@ app.get('/writeReview', (req, res) => {
   res.send('Set.');
 });
 
-app.get('*',function(req,res) {
-    const parsed = parse.parse(req.url, true);
-    const filename = parsed.pathname === '/' ? "Ryan/home.html" : parsed.pathname.replace('/', '');
-        let path = join.join("", filename);
-        console.log("trying to serve " + path + "...");
-        if (fs.existsSync(path)) {
-            if (filename.endsWith("html")) {
-                res.writeHead(200, {"Content-Type" : "text/html"});
-            } else if (filename.endsWith("css")) {
-                res.writeHead(200, {"Content-Type" : "text/css"});
-            } else if (filename.endsWith("js")) {
-                res.writeHead(200, {"Content-Type" : "text/javascript"});
-            } else {
-                res.writeHead(200);
-            }
+app.get('*', function(req, res) {
+  const parsed = parse.parse(req.url, true);
+  const filename = parsed.pathname === '/' ? "Ryan/home.html" : parsed.pathname.replace('/', '');
+  let path = join.join("", filename);
+  console.log("trying to serve " + path + "...");
+  if(fs.existsSync(path)) {
+    if(filename.endsWith("html")) {
+      res.writeHead(200, { "Content-Type": "text/html" });
+    } else if(filename.endsWith("css")) {
+      res.writeHead(200, { "Content-Type": "text/css" });
+    } else if(filename.endsWith("js")) {
+      res.writeHead(200, { "Content-Type": "text/javascript" });
+    } else {
+      res.writeHead(200);
+    }
 
-            res.write(fs.readFileSync(path));
-            res.end();
-        } else {
-            res.writeHead(404);
-            res.end();
-        };
+    res.write(fs.readFileSync(path));
+    res.end();
+  } else {
+    res.writeHead(404);
+    res.end();
+  };
 });
 
 app.listen(process.env.PORT || port, () => {
-    console.log(`App listening at http://localhost:${port}`);
+  console.log(`App listening at http://localhost:${port}`);
 });
