@@ -37,16 +37,23 @@
           </ul>
         </div>
       </nav>
+      <form action = "/writeReview">
         <div class = "container">
           <div class = "row">
-            <h1>Write review for [selected grocery name]: </h1>
+            <h1>Write review for [selected housing unit]: </h1>
           </div>
           <div class = "row">
             <textarea class="form-control" rows="5" id="comment"></textarea>
           </div>
           <div class = "row">
-            <span>How expensive was this grocery store?</span>
+            <span>How much did you pay for monthly rent + average utilities?</span>
           </div>
+          <div class = "row">
+            <span class="input-group-addon">$</span>
+            <div class="col-xs-2"><input type="text" class="form-control" id = "price" placeholder="price"></div>
+          </div>
+        </div>
+      </form>
           <div class = "row">
             <div class="dollars">
               <form action="#">
@@ -64,7 +71,7 @@
             </div>
           </div>
           <div>
-            <button type="button" class="btn btn-primary" id = "submit-review" onclick="location.href = '../Jason/grocery-read-reviews.html'">Submit</button>
+            <button type="button" class="btn btn-primary" id = "submit-review" onclick="location.href = '../writeReview'">Submit</button>
           </div>
         </div>
         

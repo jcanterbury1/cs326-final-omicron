@@ -92,9 +92,13 @@ app.get('/reviews/:item', (req, res) => {
     const v = datastore[k];
     res.send(`item = ${k}, reviews = ${randomCard}`);
 });
+
+//changing from get to post
 app.get('/writeReview', (req, res) => {
-  const k = req.query["name"];
-  const v = req.query["price"];
+  const k = req.query.name;
+  const v = req.query.price;
+  const x = req.query.review;
+  const z = req.query.category;
   datastore[k] = v;
   console.log(`Set ${k} to ${v}, body = ${JSON.stringify(req.query)}`);
   res.send('Set.');
