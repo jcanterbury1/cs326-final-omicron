@@ -10,9 +10,6 @@ Laundromats/Grocery - name, address, pricing, ratings, likes
 
 Review - type, address, price, review
 
-
-
-
 CRUD
 
 /user/register - allows new user to register a new account
@@ -37,6 +34,7 @@ https://amherst-reviews.herokuapp.com/Ryan/home.html
 
 ![HTML](pictures/Create-Pre.JPG)
 ![HTML](pictures/Create-Post.JPG)
+
 For creation we allow users to create account with the API endpoint /user/register
 
 Division of Labor:
