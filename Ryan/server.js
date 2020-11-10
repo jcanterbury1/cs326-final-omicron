@@ -72,7 +72,7 @@ app.get('/user/updateUsername', (req, res) => {
     const k = req.params['old_username'];
     datastore[k] = req.params['new_username'];
     console.log("User: " +k +" updated.");
-    res.send(`username = ${randomName}, new_username = ${randomEmail}`);
+    res.send(`username = ${k}, new_username = ${datastore[k]}`);
 });
 
 app.get('/user/deleteAccount', (req, res) => {
