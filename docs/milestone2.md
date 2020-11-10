@@ -18,6 +18,8 @@ CRUD
 
 https://amherst-reviews.herokuapp.com/Ryan/home.html
 
+![Image](pictures/Create-Pre.jpg)
+![Image](pictures/Create-Post.jpg)
 For creation we allow users to create account with the API endpoint /user/register
 
 Division of Labor:
