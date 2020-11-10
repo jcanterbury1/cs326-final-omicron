@@ -64,7 +64,22 @@ let randomAddress = faker.address.streetAddress();
 app.get('/user/login', (req, res) => {
     const k = req.params['username'];
     const v = datastore[k];
-    res.send(`username = ${k}, details = ${randomName, randomEmail}`);
+    console.log("User: " +k +" logged in.");
+    res.send(`username = ${randomName}, details = ${randomEmail}`);
+});
+
+app.get('/user/updateUsername', (req, res) => {
+    const k = req.params['old_username'];
+    datastore[k] = req.params['new_username'];
+    console.log("User: " +k +" updated.");
+    res.send(`username = ${randomName}, new_username = ${randomEmail}`);
+});
+
+app.get('/user/deleteAccount', (req, res) => {
+    const k = req.params['username'];
+    datastore[k] = null;
+    console.log("User: " +k +" deleted.");
+    res.send(`username = ${randomName} deleted.`);
 });
 
 app.get('/search/:item', (req, res) => {
