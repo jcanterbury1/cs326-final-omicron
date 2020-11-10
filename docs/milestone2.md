@@ -14,6 +14,7 @@ Review - type, address, price, review
 
 
 CRUD
+
 /user/register - allows new user to register a new account
 
 /user/login - allows user to log in
