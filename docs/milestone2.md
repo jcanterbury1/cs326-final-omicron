@@ -10,6 +10,7 @@ Laundromats/Grocery - name, address, pricing, ratings, likes
 
 Review - type, address, price, review
 
+
 CRUD
 /user/register - allows new user to register a new account
 
