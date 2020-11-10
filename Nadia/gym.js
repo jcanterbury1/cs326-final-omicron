@@ -1,5 +1,6 @@
 let price = 0;
-
+const name = 'Planet Fitness';
+const category = 'Gym';
 //assign price based on dollar sign
 document.getElementById("dollar-5").addEventListener("click", ()=>{
     price = 5;
@@ -18,7 +19,22 @@ document.getElementById("dollar-1").addEventListener("click", ()=>{
 });
 
 //on submit, add price, review, gym name and address to datatable
-
+function writeReview(category, name, review, price){
+    fetch('/writeReview', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/JSON',
+        },
+        body: JSON.stringify({'category': category, 'name': name, 'review': review, 'price': price}),
+    })
+    .then(data=>{
+        console.log('saved review succesfully', data);
+    })
+    .catch((error)=> {
+        console.error('Error:', error);
+    });
+};
 document.getElementById("submit-review").addEventListener("click", ()=>{
     const review = document.getElementById("comment").value;
+    writeReview(category, name, review, price);
 });
