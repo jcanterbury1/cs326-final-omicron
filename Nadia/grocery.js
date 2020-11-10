@@ -2,23 +2,23 @@ const name = 'big y';
 const category = 'Grocery';
 //link submit button to reviews page 
 document.getElementById("dollar-5").addEventListener("click", ()=>{
-    console.log("5");
+    price = 5;
 });
 document.getElementById("dollar-4").addEventListener("click", ()=>{
-    console.log("4");
+    price = 4;
 });
 document.getElementById("dollar-3").addEventListener("click", ()=>{
-    console.log("3");
+    price = 3;
 });
 document.getElementById("dollar-2").addEventListener("click", ()=>{
-    console.log("2");
+    price = 2;
 });
 document.getElementById("dollar-1").addEventListener("click", ()=>{
-    console.log("1");
+    price = 1;
 });
 
 function writeReview(category, name, review, price){
-    fetch('/groceryReview', {
+    fetch('/writeReview', {
         method: 'POST',
         headers: {
             'content-type': 'application/JSON',

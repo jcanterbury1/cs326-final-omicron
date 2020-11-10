@@ -53,6 +53,15 @@ app.get('/user/register', (req, res) => {
     console.log(`Set ${k} to ${v}`);
     res.send('Set.');
 });
+//housing write review 
+app.get('/user/register', (req, res) => {
+    const k = req.query.key;
+    const v = req.query.value;
+    datastore[k] = v;  
+    console.log(`Set ${k} to ${v}`);
+    res.send('Set.');
+});
+
 // app.get('/user/login', (req, res) => {
 //     const k = req.params['key'];
 //     const v = datastore[k];
@@ -85,16 +94,16 @@ app.get('/reviews/:key', (req, res) => {
 //     res.send(`key = ${k}, value = ${v}`);
 // });
 //   curl -d '{ "key" : "x", "value" : "12" }' -H "Content-Type: application/json" http://localhost:3000/pcreate
-app.post('/pcreate', (req, res) => {
-    const k = req.body["key"];
-    const v = req.body["value"];
+app.get('/writeReview', (req, res) => {
+    const k = req.query["name"];
+    const v = req.query["price"];
     datastore[k] = v;
-    console.log(`Set ${k} to ${v}, body = ${JSON.stringify(req.body)}`);
+    console.log(`Set ${k} to ${v}, body = ${JSON.stringify(req.query)}`);
     res.send('Set.');
 });
-app.get('*', (req, res) => {
+/*app.get('*', (req, res) => {
     res.send('NO FOOL');
-});
+});*/
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });
