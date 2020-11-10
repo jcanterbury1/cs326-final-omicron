@@ -83,17 +83,6 @@ app.get('/reviews/:key', (req, res) => {
   const v = datastore[k];
   res.send(`key = ${k}, value = ${randomName, randomEmail, randomCard}`);
 });
-// app.get('/read', (req, res) => {
-//     const k = req.query.key;
-//     const v = datastore[k];
-//     res.send(`key = ${k}, value = ${v}`);
-// });
-// app.get('/read/:key', (req, res) => {
-//     const k = req.params['key'];
-//     const v = datastore[k];
-//     res.send(`key = ${k}, value = ${v}`);
-// });
-//   curl -d '{ "key" : "x", "value" : "12" }' -H "Content-Type: application/json" http://localhost:3000/pcreate
 app.get('/writeReview', (req, res) => {
   const k = req.query["name"];
   const v = req.query["price"];
