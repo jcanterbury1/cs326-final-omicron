@@ -32,12 +32,13 @@ CRUD
 
 https://amherst-reviews.herokuapp.com/Ryan/home.html
 
-![HTML](pictures/Create-Pre.JPG)
-![HTML](pictures/Create-Post.JPG)
+![HTML](pictures/Create_Pre.JPG)
+![HTML](pictures/Create_Post.JPG)
 
 For creation we allow users to create account with the API endpoint /user/register
 
 Division of Labor:
+
 Jason:
 Everything in the Jason directory
 Auto deployment on heroku
