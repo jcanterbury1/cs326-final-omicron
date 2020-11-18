@@ -1,6 +1,6 @@
 {
   "name": "finalproject",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "start": "node server/index.js",
     "lint": "eslint client/ server/"
@@ -18,7 +18,7 @@
     "extends": "eslint:recommended",
     "parserOptions": {
       "ecmaVersion": 12,
-      "sourceType": "commonjs"
+      "sourceType": "module"
     },
     "rules": {
       "consistent-return": "error",
