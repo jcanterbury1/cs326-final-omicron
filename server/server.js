@@ -5,7 +5,7 @@ const parse = require("url");
 const join = require("path");
 const fs = require("fs");
 const faker = require("faker");
-const db = require("pg-promise")()(process.env.DATABASE_URL || "postgres://jasoncanterbury:donut2018@localhost/");
+const db = require("pg-promise")()(process.env.DATABASE_URL);
 
 const app = express();
 app.use(express.json());
