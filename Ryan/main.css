@@ -1,0 +1,138 @@
+
+.home-page-box {
+    height: 100px;
+    width: 200px;
+    border: 1px solid black;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-right: 80px;
+    margin-left: 80px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    /* The following will align the letters to the center of each square */
+    /* See this useful guide: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-page-box2 {
+    height: 800px;
+    width: 1500px;
+    border: 1px;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-right: 300px;
+    margin-left: 300px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    /* The following will align the letters to the center of each square */
+    /* See this useful guide: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+}
+
+.home-page-box3 {
+    height: 300px;
+    width: 100px;
+    border: 1px solid black;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin: 30px;
+
+    /* The following will align the letters to the center of each square */
+    /* See this useful guide: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#user-input {
+    text-align: center;
+    margin: 20px;
+}
+
+img {
+    max-width: 100%;
+    max-height: 70%;
+}
+
+form { 
+    border: 3px solid #f1f1f1; 
+} 
+input[type=text], 
+input[type=password] { 
+    width: 100%; 
+    padding: 12px 20px; 
+    margin: 8px 0; 
+    display: inline-block; 
+    border: 1px solid #ccc; 
+    box-sizing: border-box; 
+} 
+button { 
+    background-color: #4CAF50; 
+    color: white; 
+    padding: 14px 20px; 
+    margin: 8px 0; 
+    border: none; 
+    cursor: pointer; 
+    width: 100%; 
+} 
+button:hover { 
+    opacity: 0.8; 
+}       
+.cancelbtn { 
+    width: auto; 
+    padding: 10px 18px; 
+    background-color: #f44336; 
+} 
+.imgcontainer { 
+    text-align: center; 
+    margin: 24px 0 12px 0; 
+} 
+img.avatar { 
+    width: 40%; 
+    border-radius: 50%; 
+} 
+.container { 
+    padding: 16px; 
+} 
+span.psw { 
+    float: right; 
+    padding-top: 16px; 
+} 
+.cancelbtn { 
+    width: 8%; 
+} 
+.margTop{
+    margin-top: 80px;
+}
+h1 {
+    margin: 50px;
+	color: #343434;
+	font-weight: normal;
+	font-family: 'Ultra', sans-serif;   
+	font-size: 50px;
+	line-height: 42px;
+	text-transform: uppercase;
+    text-shadow: 0 2px white, 0 3px #777;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    margin: 30px;
+}
+  
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+  
+.container {
+    padding: 2px 16px;
+}
