@@ -13,7 +13,8 @@ const passport = require('passport');               // handles authentication
 const LocalStrategy = require('passport-local').Strategy; // username/password strategy
 const app = express();
 const port = process.env.PORT || 3000;
-const minicrypt = require('./Ryan/miniCrypt');
+const minicrypt = require('../client/miniCrypt');
+let path = require('path');
 
 
 const mc = new minicrypt();
@@ -90,7 +91,7 @@ app.use(expressSession(session));
 passport.use(strategy);
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(__dirname + '/client')); // For serving CSS & JS to websites
+app.use(express.static('client')); // For serving CSS & JS to websites
 
 
 // Convert user object to a unique identifier.
@@ -163,7 +164,7 @@ app.post('/login',
 
 // Handle the URL /login (just output the login.html file).
 app.get('/login',
-	(req, res) => res.sendFile(__dirname + '/Ryan/login.html'));
+	(req, res) => res.sendFile(path.join(__dirname, '../client', 'login.html')));
 
 // Handle logging out (takes us back to the login page).
 app.get('/logout', (req, res) => {
@@ -187,37 +188,37 @@ app.post('/register',
 
 // Register URL
 app.get('/register',
-	async(req, res) => res.sendFile(__dirname + '/Ryan/create.html'));
+	async(req, res) => res.sendFile(path.join(__dirname, '../client', 'create.html')));
 
 // Private data
 app.get('/home',
 	checkLoggedIn, // If we are logged in (notice the comma!)...
 	(req, res) => {             // Go to the user's page.
-	res.sendFile(__dirname + '/Ryan/home.html');
+	res.sendFile(path.join(__dirname, '../client', 'home.html'));
 	});
 
 app.get('/housing-listings',
 	checkLoggedIn, // If we are logged in (notice the comma!)...
 	(req, res) => {             // Go to the user's page.
-	res.sendFile(__dirname + '/Jason/housing-listings.html');
+	res.sendFile(path.join(__dirname, '../client', 'housing-listings.html'));
 });
 
 app.get('/grocery-listings',
 	checkLoggedIn, // If we are logged in (notice the comma!)...
 	(req, res) => {             // Go to the user's page.
-	res.sendFile(__dirname + '/Jason/grocery-listings.html');
+	res.sendFile(path.join(__dirname, '../client', 'grocery-listings.html'));
 });
 
 app.get('/laundromat-listings',
 	checkLoggedIn, // If we are logged in (notice the comma!)...
 	(req, res) => {             // Go to the user's page.
-	res.sendFile(__dirname + '/Jason/laundromat-listings.html');
+	res.sendFile(path.join(__dirname, '../client', 'laundromat-listings.html'));
 });
 
 app.get('/gym-listings',
 	checkLoggedIn, // If we are logged in (notice the comma!)...
 	(req, res) => {             // Go to the user's page.
-	res.sendFile(__dirname + '/Jason/gym-listings.html');
+	res.sendFile(path.join(__dirname, '../client', 'gym-listings.html'));
 });
 
 
@@ -329,3 +330,10 @@ app.get('/housing/new', checkLoggedIn, (req, res) => {
   res.send('Review Written.');
 });
 
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../client', 'login.html'));
+});
+
+app.listen(port, () => {
+    console.log(`App now listening at http://localhost:${port}`);
+});
