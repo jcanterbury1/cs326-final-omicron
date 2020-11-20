@@ -1,15 +1,225 @@
-"use strict";
 
-const express = require("express");
-const parse = require("url");
-const join = require("path");
-const fs = require("fs");
-const faker = require("faker");
-const db = require("pg-promise")()(process.env.DATABASE_URL);
 
+
+
+'use strict';
+
+// For loading environment variables.
+require('dotenv').config();
+
+const express = require('express');                 // express routing
+const expressSession = require('express-session');  // for managing session state
+const passport = require('passport');               // handles authentication
+const LocalStrategy = require('passport-local').Strategy; // username/password strategy
 const app = express();
-app.use(express.json());
+const port = process.env.PORT || 3000;
+const minicrypt = require('./Ryan/miniCrypt');
 
+
+const mc = new minicrypt();
+
+
+//DATABASE CONNECTION
+const pgp = require("pg-promise")({
+    connect(client) {
+        console.log('Connected to database:', client.connectionParameters.database);
+    },
+
+    disconnect(client) {
+        console.log('Disconnected from database:', client.connectionParameters.database);
+    }
+});
+
+// Local PostgreSQL credentials
+const username = "postgres";
+const password = "Ryry2249";
+
+const url = process.env.DATABASE_URL || `postgres://${username}:${password}@localhost/`;
+const db = pgp(url);
+
+async function connectAndRun(task) {
+    let connection = null;
+
+    try {
+        connection = await db.connect();
+        return await task(connection);
+    } catch (e) {
+        throw e;
+    } finally {
+        try {
+            connection.done();
+        } catch(ignored) {
+
+        }
+    }
+}
+//------------------------------------------
+
+// Session configuration
+
+const session = {
+    secret : process.env.SECRET || 'SECRET', // set this encryption key in Heroku config (never in GitHub)!
+    resave : false,
+    saveUninitialized: false
+};
+
+// Passport configuration
+
+const strategy = new LocalStrategy(
+    async (username, password, done) => {
+	if (!(await findUser(username))) {
+	    // no such user
+	    return done(null, false, { 'message' : 'Wrong username' });
+	}
+	if (!validatePassword(username, password)) {
+	    // invalid password
+	    // should disable logins after N messages
+	    // delay return to rate-limit brute-force attacks
+	    await new Promise((r) => setTimeout(r, 2000)); // two second delay
+	    return done(null, false, { 'message' : 'Wrong password' });
+	}
+	// success!
+	// should create a user object here, associated with a unique identifier
+	return done(null, username);
+    });
+
+
+// App configuration
+
+app.use(expressSession(session));
+passport.use(strategy);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(__dirname + '/Ryan')); // For serving CSS & JS to websites
+app.use(express.static(__dirname + '/Jason'));
+app.use(express.static(__dirname + '/Nadia'));
+
+// Convert user object to a unique identifier.
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+// Convert a unique identifier to a user object.
+passport.deserializeUser((uid, done) => {
+    done(null, uid);
+});
+
+app.use(express.json()); // allow JSON inputs
+app.use(express.urlencoded({'extended' : false})); // allow URLencoded data
+
+/////
+
+//Ryan's endpoints and functions
+
+// Returns true iff the user exists.
+async function findUser(username) {
+    return (await connectAndRun(db => db.any("SELECT * FROM Users WHERE username=($1);", [username]))).length === 1;
+}
+
+// Returns true iff the password is the one we have stored (in plaintext = bad but easy).
+async function validatePassword(name, pwd) {
+    if (!(await findUser(name))) {
+	return false;
+    }
+    if (!mc.check(pwd, await connectAndRun(db => db.any("SELECT salt FROM Users WHERE username=($1);", [username])), await connectAndRun(db => db.none("SELECT password FROM Users WHERE username=($1);", [username])))) {
+	return false;
+    }
+    return true;
+}
+
+// Add a user to the "database".
+
+async function addUser(first, last, email, name, pwd) {
+    if (await findUser(name)) {
+	return false;
+    }
+    const [salt, hash] = mc.hash(pwd);
+    await connectAndRun(db => db.none("INSERT INTO Users VALUES ($1, $2, $3, $4, $5, $6);", [first, last, email, name, hash, salt]));
+    return true;
+}
+
+// Routes
+
+function checkLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+	// If we are authenticated, run the next route.
+	next();
+    } else {
+	// Otherwise, redirect to the login page.
+	res.redirect('/login');
+    }
+}
+
+app.get('/',
+	checkLoggedIn,
+	(req, res) => {
+	    res.send("hello world");
+	});
+
+// Handle post data from the login.html form.
+app.post('/login',
+	 passport.authenticate('local' , {     // use username/password authentication
+	     'successRedirect' : '/home',   // when we login, go to /private 
+	     'failureRedirect' : '/login'      // otherwise, back to login
+	 }));
+
+// Handle the URL /login (just output the login.html file).
+app.get('/login',
+	(req, res) => res.sendFile(__dirname + '/Ryan/login.html'));
+
+// Handle logging out (takes us back to the login page).
+app.get('/logout', (req, res) => {
+    req.logout(); // Logs us out!
+    res.redirect('/login'); // back to login
+});
+
+app.post('/register',
+	 async(req, res) => {
+	     const username = req.body['username'];
+		 const password = req.body['password'];
+		 const first = req.body['first'];
+		 const last = req.body['last'];
+		 const email = req.body['email'];
+	     if (await addUser(first, last, email, username, password)) {
+		 res.redirect('/login');
+	     } else {
+		 res.redirect('/register');
+	     }
+	 });
+
+// Register URL
+app.get('/register',
+	async(req, res) => res.sendFile(__dirname + '/Ryan/create.html'));
+
+// Private data
+app.get('/home',
+	checkLoggedIn, // If we are logged in (notice the comma!)...
+	(req, res) => {             // Go to the user's page.
+	res.sendFile(__dirname + '/Ryan/home.html');
+	});
+
+app.get('/housing-listings',
+	checkLoggedIn, // If we are logged in (notice the comma!)...
+	(req, res) => {             // Go to the user's page.
+	res.sendFile(__dirname + '/Jason/housing-listings.html');
+});
+
+app.get('/grocery-listings',
+	checkLoggedIn, // If we are logged in (notice the comma!)...
+	(req, res) => {             // Go to the user's page.
+	res.sendFile(__dirname + '/Jason/grocery-listings.html');
+});
+
+app.get('/laundromat-listings',
+	checkLoggedIn, // If we are logged in (notice the comma!)...
+	(req, res) => {             // Go to the user's page.
+	res.sendFile(__dirname + '/Jason/laundromat-listings.html');
+});
+
+app.get('/gym-listings',
+	checkLoggedIn, // If we are logged in (notice the comma!)...
+	(req, res) => {             // Go to the user's page.
+	res.sendFile(__dirname + '/Jason/gym-listings.html');
+});
 
 
 // Jason's endpoints
@@ -112,12 +322,6 @@ app.get("/getName", async (req, res) => {
 });
 
 
-
-
-
-
-//   curl -d '{ "value" : "12" }' -H "Content-Type: application/json" http://localhost:3000/read/x
-
 app.get('/housing/new', (req, res) => {
   const k = req.query.address;
   const v = req.query.value;
@@ -125,110 +329,4 @@ app.get('/housing/new', (req, res) => {
   console.log(`Set ${k} to ${v}`);
   res.send('Review Written.');
 });
-// app.get('/gym/new', (req, res) => {
-//   const k = req.query.name;
-//   const v = req.query.value;
-//   datastore[k] = v;
-//   console.log(`Set ${k} to ${v}`);
-//   res.send('Review Written.');
-// });
-// app.get('/grocery/new', (req, res) => {
-//   const k = req.query.name;
-//   const v = req.query.value;
-//   datastore[k] = v;
-//   console.log(`Set ${k} to ${v}`);
-//   res.send('Review Written.');
-// });
-// app.get('/laundromat/new', (req, res) => {
-//   const k = req.query.name;
-//   const v = req.query.value;
-//   datastore[k] = v;
-//   console.log(`Set ${k} to ${v}`);
-//   res.send('Review Written.');
-// });
-// app.get('/review/new', (req, res) => {
-//   const k = req.query.review;
-//   const v = req.query.object;
-//   datastore[k] = v;
-//   console.log(`Set ${k} to ${v}`);
-//   res.send('Review Written.');
-// });
-// app.get('/user/register', (req, res) => {
-//   const k = req.query.username;
-//   const v = req.query.password;
-//   datastore[k] = v;
-//   console.log(`Set ${k} to ${v}`);
-//   res.send('Account created.');
-// });
 
-let randomName = faker.name.findName(); // Rowan Nikolaus
-let randomEmail = faker.internet.email(); // Kassandra.Haley@erich.biz
-let randomCard = faker.helpers.createCard(); // random contact card containing many propert
-let randomAddress = faker.address.streetAddress();
-
-app.get('/user/login', (req, res) => {
-  const k = req.params['username'];
-  const v = datastore[k];
-  console.log("User: " + k + " logged in.");
-  res.send(`username = ${randomName}, details = ${randomEmail}`);
-});
-
-app.get('/user/updateUsername', (req, res) => {
-  const k = req.params['old_username'];
-  datastore[k] = req.params['new_username'];
-  console.log("User: " + k + " updated.");
-  res.send(`username = ${randomName}, new_username = ${randomEmail}`);
-});
-
-app.get('/user/deleteAccount', (req, res) => {
-  const k = req.params['username'];
-  datastore[k] = null;
-  console.log("User: " + k + " deleted.");
-  res.send(`username = ${randomName} deleted.`);
-});
-
-app.get('/search/:item', (req, res) => {
-  const k = req.params['name'];
-  const v = datastore[k];
-  res.send(`item = ${k}, value = ${randomCard}`);
-});
-app.get('/reviews/:item', (req, res) => {
-  const k = req.params['name'];
-  const v = datastore[k];
-  res.send(`item = ${k}, reviews = ${randomCard}`);
-});
-
-//changing from get to post
-app.get('/writeReview', (req, res) => {
-  const k = req.query.name;
-  const v = req.query.price;
-  const x = req.query.review;
-  const z = req.query.category;
-  datastore[k] = v;
-  console.log(`Set ${k} to ${v}, body = ${JSON.stringify(req.query)}`);
-  res.send('Set.');
-});
-
-app.get("*", (req, res) => {
-  const parsed = parse.parse(req.url, true);
-  const filename = parsed.pathname === "/" ? "Ryan/login.html" : parsed.pathname.replace("/", "");
-  const path = join.join("", filename);
-  if(fs.existsSync(path)) {
-    if(filename.endsWith("html")) {
-      res.writeHead(200, { "Content-Type": "text/html" });
-    } else if(filename.endsWith("css")) {
-      res.writeHead(200, { "Content-Type": "text/css" });
-    } else if(filename.endsWith("js")) {
-      res.writeHead(200, { "Content-Type": "text/javascript" });
-    } else {
-      res.writeHead(200);
-    }
-    res.write(fs.readFileSync(path));
-    res.end();
-  } else {
-    res.writeHead(404);
-    res.end();
-  }
-});
-
-app.listen(process.env.PORT || 8000);

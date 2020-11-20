@@ -1,6 +1,6 @@
 
 async function createAccount(){
-    const response = await fetch('/user/register', {
+    const response = await fetch('/register', {
         method: 'POST',
         headers: {
             'content-type': 'application/JSON',

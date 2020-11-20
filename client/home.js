@@ -9,4 +9,4 @@ async function search(){
 }
 
 //Table Creations
-//CREATE TABLE Users ( first char(255), last char(255), email varchar(255), username varchar(255), password varchar(255) );
+//CREATE TABLE Users ( first char(255), last char(255), email varchar(255), username varchar(255), password varchar(255), salt varchar(255));
