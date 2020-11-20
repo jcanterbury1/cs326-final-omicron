@@ -223,43 +223,43 @@ app.get('/gym-listings',
 
 
 // Jason's endpoints
-app.get("/getGroceryListings", async (req, res) => {
+app.get("/getGroceryListings", checkLoggedIn, async (req, res) => {
   res.send(await db.any("select * from grocerylistings order by likes desc;"));
 });
 
-app.get("/getGymListings", async (req, res) => {
+app.get("/getGymListings", checkLoggedIn, async (req, res) => {
   res.send(await db.any("select * from gymlistings order by likes desc;"));
 });
 
-app.get("/getHousingListings", async (req, res) => {
+app.get("/getHousingListings", checkLoggedIn, async (req, res) => {
   res.send(await db.any("select * from housinglistings order by likes desc;"));
 });
 
-app.get("/getLaundromatListings", async (req, res) => {
+app.get("/getLaundromatListings", checkLoggedIn, async (req, res) => {
   res.send(await db.any("select * from laundromatlistings order by likes desc;"));
 });
 
-app.post("/addGroceryListing", async (req, res) => {
+app.post("/addGroceryListing", checkLoggedIn, async (req, res) => {
   await db.none("insert into grocerylistings values ($1,$2,$3,$4);", [req.body.name, req.body.address, 3, 0]);
   res.send();
 });
 
-app.post("/addGymListing", async (req, res) => {
+app.post("/addGymListing", checkLoggedIn, async (req, res) => {
   await db.none("insert into gymlistings values ($1,$2,$3,$4);", [req.body.name, req.body.address, 0, 0]);
   res.send();
 });
 
-app.post("/addHousingListing", async (req, res) => {
+app.post("/addHousingListing", checkLoggedIn, async (req, res) => {
   await db.none("insert into housinglistings values ($1,$2,$3,$4);", [req.body.address, req.body.landlord, 0, 0]);
   res.send();
 });
 
-app.post("/addLaundromatListing", async (req, res) => {
+app.post("/addLaundromatListing", checkLoggedIn, async (req, res) => {
   await db.none("insert into laundromatlistings values ($1,$2,$3,$4);", [req.body.name, req.body.address, 0, 0]);
   res.send();
 });
 
-app.get("/getGroceryReviews", (req, res) => {
+app.get("/getGroceryReviews", checkLoggedIn, (req, res) => {
   const listings = [];
   const size = Math.floor((Math.random() * 5) + 5);
   for(let i = 0; i < size; i++) {
@@ -272,7 +272,7 @@ app.get("/getGroceryReviews", (req, res) => {
   res.send(listings);
 });
 
-app.get("/getGymReviews", (req, res) => {
+app.get("/getGymReviews", checkLoggedIn, (req, res) => {
   const listings = [];
   const size = Math.floor((Math.random() * 5) + 5);
   for(let i = 0; i < size; i++) {
@@ -285,7 +285,7 @@ app.get("/getGymReviews", (req, res) => {
   res.send(listings);
 });
 
-app.get("/getHousingReviews", (req, res) => {
+app.get("/getHousingReviews", checkLoggedIn, (req, res) => {
   const listings = [];
   const size = Math.floor((Math.random() * 5) + 5);
   for(let i = 0; i < size; i++) {
@@ -298,7 +298,7 @@ app.get("/getHousingReviews", (req, res) => {
   res.send(listings);
 });
 
-app.get("/getLaundromatReviews", (req, res) => {
+app.get("/getLaundromatReviews", checkLoggedIn, (req, res) => {
   const listings = [];
   const size = Math.floor((Math.random() * 5) + 5);
   for(let i = 0; i < size; i++) {
@@ -311,18 +311,18 @@ app.get("/getLaundromatReviews", (req, res) => {
   res.send(listings);
 });
 
-app.post("/addName", async (req, res) => {
+app.post("/addName", checkLoggedIn, async  (req, res) => {
   await db.none("delete from name;");
   await db.none("insert into name values ($1);", [req.body.name]);
   res.send();
 });
 
-app.get("/getName", async (req, res) => {
+app.get("/getName", checkLoggedIn, async (req, res) => {
   res.send(await db.one("select * from name;"));
 });
 
 
-app.get('/housing/new', (req, res) => {
+app.get('/housing/new', checkLoggedIn, (req, res) => {
   const k = req.query.address;
   const v = req.query.value;
   datastore[k] = v;
