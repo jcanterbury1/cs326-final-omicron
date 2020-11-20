@@ -90,9 +90,8 @@ app.use(expressSession(session));
 passport.use(strategy);
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(__dirname + '/Ryan')); // For serving CSS & JS to websites
-app.use(express.static(__dirname + '/Jason'));
-app.use(express.static(__dirname + '/Nadia'));
+app.use(express.static(__dirname + '/client')); // For serving CSS & JS to websites
+
 
 // Convert user object to a unique identifier.
 passport.serializeUser((user, done) => {
