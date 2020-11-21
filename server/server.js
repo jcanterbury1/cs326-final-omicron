@@ -31,11 +31,8 @@ const pgp = require("pg-promise")({
     }
 });
 
-// Local PostgreSQL credentials
-const username = "postgres";
-const password = "Ryry2249";
 
-const url = process.env.DATABASE_URL || `postgres://${username}:${password}@localhost/`;
+const url = process.env.DATABASE_URL;
 const db = pgp(url);
 
 async function connectAndRun(task) {
