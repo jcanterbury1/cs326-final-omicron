@@ -1,5 +1,8 @@
 "use strict";
 
+//const { name } = require("faker");
+
+
 addName();
 
 async function addName() {
@@ -7,8 +10,9 @@ async function addName() {
   document.getElementById("heading").innerHTML = "Write a review for " + name.name + ":";
 }
 
-const name = "big y";
+//const name = "big y";
 const category = "Grocery";
+let price = 0;
 //link submit button to reviews page
 document.getElementById("dollar-5").addEventListener("click", () => {
   price = 5;
@@ -26,24 +30,29 @@ document.getElementById("dollar-1").addEventListener("click", () => {
   price = 1;
 });
 
-function writeReview(category, name, review, price) {
-  fetch("/writeReview", {
-      method: "POST",
+async function writeReview(){
+  const response = await fetch('/write-grocery-review', {
+      method: 'POST',
       headers: {
-        "content-type": "application/JSON",
+          'content-type': 'application/JSON',
       },
-      body: JSON.stringify({ "category": category, "name": name, "review": review, "price": price }),
-    })
-    .then(data => {
-      console.log("saved review succesfully", data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
+      body: JSON.stringify({
+          category: category,
+          name: name,
+          review: document.getElementById("comment").value,
+          price: price,
+      })
+  });
+
+  if (!response.ok) {
+      console.error("Could not write review.");
+  }
+  else{
+    console.log("wrote review");
+  }
+};
 
 //on submit, add price, review, gym name and address to datatable
 document.getElementById("submit-review").addEventListener("click", () => {
-  const review = document.getElementById("comment").value;
-  writeReview(category, name, review, price);
+  writeReview();
 });
