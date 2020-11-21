@@ -33,7 +33,7 @@ const pgp = require("pg-promise")({
 
 // Local PostgreSQL credentials
 const username = "postgres";
-const password = "123";
+const password = "Ryry2249";
 
 const url = process.env.DATABASE_URL || `postgres://${username}:${password}@localhost/`;
 const db = pgp(url);
