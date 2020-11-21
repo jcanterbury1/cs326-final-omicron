@@ -33,7 +33,7 @@ const pgp = require("pg-promise")({
 
 // Local PostgreSQL credentials
 const username = "postgres";
-const password = "Ryry2249";
+const password = "123";
 
 const url = process.env.DATABASE_URL || `postgres://${username}:${password}@localhost/`;
 const db = pgp(url);
@@ -187,8 +187,8 @@ app.post('/register',
 
 // Register URL
 app.get('/register',
-	async(req, res) => res.sendFile(path.join(__dirname, '../client', 'create.html')));
-
+  async(req, res) => res.sendFile(path.join(__dirname, '../client', 'create.html')));
+  
 // Private data
 app.get('/home',
 	checkLoggedIn, // If we are logged in (notice the comma!)...
@@ -219,7 +219,47 @@ app.get('/gym-listings',
 	(req, res) => {             // Go to the user's page.
 	res.sendFile(path.join(__dirname, '../client', 'gym-listings.html'));
 });
+//Nadia's write-review gets
+app.get('/write-grocery-review',
+	checkLoggedIn, // If we are logged in (notice the comma!)...
+	(req, res) => {             // Go to the user's page.
+	res.sendFile(path.join(__dirname, '../client', 'grocery-write-review.html'));
+});
+app.get('/write-gym-review',
+	checkLoggedIn, // If we are logged in (notice the comma!)...
+	(req, res) => {             // Go to the user's page.
+	res.sendFile(path.join(__dirname, '../client', 'gym-write-review.html'));
+});
+app.get('/write-housing-review',
+	checkLoggedIn, // If we are logged in (notice the comma!)...
+	(req, res) => {             // Go to the user's page.
+	res.sendFile(path.join(__dirname, '../client', 'housing-write-review.html'));
+});
+app.get('/write-laundromat-review',
+	checkLoggedIn, // If we are logged in (notice the comma!)...
+	(req, res) => {             // Go to the user's page.
+	res.sendFile(path.join(__dirname, '../client', 'laundromat-write-review.html'));
+});
+//Nadia's endpoints
+app.post("/write-grocery-review", checkLoggedIn, async (req, res) => {
+  await db.none("insert into reviews values ($1,$2,$3,$4);", [req.body.category, req.body.name, req.body.review, req.body.price]);
+  res.send();
+});
 
+app.post("/write-gym-review", checkLoggedIn, async (req, res) => {
+  await db.none("insert into reviews values ($1,$2,$3,$4);", [req.body.category, req.body.name, req.body.review, req.body.price]);
+  res.send();
+});
+
+app.post("/write-housing-review", checkLoggedIn, async (req, res) => {
+  await db.none("insert into reviews values ($1,$2,$3,$4);", [req.body.category, req.body.name, req.body.review, req.body.price]);
+  res.send();
+});
+
+app.post("/write-laundromat-review", checkLoggedIn, async (req, res) => {
+  await db.none("insert into reviews values ($1,$2,$3,$4);", [req.body.category, req.body.name, req.body.review, req.body.price]);
+  res.send();
+});
 
 // Jason's endpoints
 app.get("/getGroceryListings", checkLoggedIn, async (req, res) => {
