@@ -8,7 +8,6 @@ async function createAccount(){
         body: JSON.stringify({
             first: document.getElementById("first").value,
             last: document.getElementById("last").value,
-            email: document.getElementById("email").value,
             username: document.getElementById("username").value,
             password: document.getElementById("password").value,
         })

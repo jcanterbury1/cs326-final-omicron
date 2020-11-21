@@ -128,12 +128,12 @@ async function validatePassword(name, pwd) {
 
 // Add a user to the "database".
 
-async function addUser(first, last, email, name, pwd) {
+async function addUser(first, last, name, pwd) {
     if (await findUser(name)) {
 	return false;
     }
     const [salt, hash] = mc.hash(pwd);
-    await connectAndRun(db => db.none("INSERT INTO Users VALUES ($1, $2, $3, $4, $5, $6);", [first, last, email, name, hash, salt]));
+    await connectAndRun(db => db.none("INSERT INTO Users VALUES ($1, $2, $3, $4, $5, $6);", [first, last, name, hash, salt]));
     return true;
 }
 
@@ -178,8 +178,7 @@ app.post('/register',
 		 const password = req.body['password'];
 		 const first = req.body['first'];
 		 const last = req.body['last'];
-		 const email = req.body['email'];
-	     if (await addUser(first, last, email, username, password)) {
+	     if (await addUser(first, last, username, password)) {
 		 res.redirect('/login');
 	     } else {
 		 res.redirect('/register');
@@ -322,13 +321,6 @@ app.get("/getName", checkLoggedIn, async (req, res) => {
 });
 
 
-app.get('/housing/new', checkLoggedIn, (req, res) => {
-  const k = req.query.address;
-  const v = req.query.value;
-  datastore[k] = v;
-  console.log(`Set ${k} to ${v}`);
-  res.send('Review Written.');
-});
 
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client', 'login.html'));
