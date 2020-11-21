@@ -31,7 +31,6 @@ const pgp = require("pg-promise")({
     }
 });
 
-
 const url = process.env.DATABASE_URL;
 const db = pgp(url);
 
@@ -69,7 +68,7 @@ const strategy = new LocalStrategy(
 	    // no such user
 	    return done(null, false, { 'message' : 'Wrong username' });
 	}
-	if (!validatePassword(username, password)) {
+	if (!(await validatePassword(username, password))) {
 	    // invalid password
 	    // should disable logins after N messages
 	    // delay return to rate-limit brute-force attacks
@@ -117,7 +116,8 @@ async function validatePassword(name, pwd) {
     if (!(await findUser(name))) {
 	return false;
     }
-    if (!mc.check(pwd, await connectAndRun(db => db.any("SELECT salt FROM Users WHERE username=($1);", [username])), await connectAndRun(db => db.none("SELECT password FROM Users WHERE username=($1);", [username])))) {
+    let fetch = await connectAndRun(db => db.any("SELECT password, salt FROM Users WHERE username=($1);", [name]));
+    if (!mc.check(pwd, fetch[0].salt, fetch[0].password)) {
 	return false;
     }
     return true;
@@ -130,7 +130,8 @@ async function addUser(first, last, name, pwd) {
 	return false;
     }
     const [salt, hash] = mc.hash(pwd);
-    await connectAndRun(db => db.none("INSERT INTO Users VALUES ($1, $2, $3, $4, $5, $6);", [first, last, name, hash, salt]));
+    console.log(salt);
+    await connectAndRun(db => db.none("INSERT INTO Users VALUES ($1, $2, $3, $4, $5);", [first, last, name, hash, salt]));
     return true;
 }
 
@@ -144,6 +145,16 @@ function checkLoggedIn(req, res, next) {
 	// Otherwise, redirect to the login page.
 	res.redirect('/login');
     }
+}
+
+function checkNotLoggedIn(req, res, next) {
+  if (!req.isAuthenticated()) {
+// If we are authenticated, run the next route.
+next();
+  } else {
+// Otherwise, redirect to the login page.
+res.redirect('/home');
+  }
 }
 
 app.get('/',
@@ -183,7 +194,7 @@ app.post('/register',
 	 });
 
 // Register URL
-app.get('/register',
+app.get('/register', checkNotLoggedIn,
   async(req, res) => res.sendFile(path.join(__dirname, '../client', 'create.html')));
   
 // Private data
