@@ -8,10 +8,10 @@ const LocalStrategy = require("passport-local").Strategy;
 const minicrypt = require("../client/miniCrypt");
 const mc = new minicrypt();
 const path = require("path");
-const db = require("pg-promise")()(process.env.DATABASE_URL);
+const db = require("pg-promise")()(process.env.DATABASE_URL || `postgres://jasoncanterbury:donut2018@localhost/`);
 
 const session = {
-  secret: process.env.SECRET,
+  secret: process.env.SECRET || "SECRET",
   resave: false,
   saveUninitialized: false
 };
@@ -28,7 +28,7 @@ const strategy = new LocalStrategy(async (username, password, done) => {
 });
 
 const app = express();
-app.listen(process.env.PORT);
+app.listen(process.env.PORT || 8000);
 app.use(expressSession(session));
 passport.use(strategy);
 app.use(passport.initialize());
