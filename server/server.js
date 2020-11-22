@@ -243,11 +243,11 @@ app.post("/likeListing", checkLoggedIn, async (req, res) => {
 
 
 // redirecting endpoints
-app.get("/login", (req, res) => {
+app.get("/login", checkNotLoggedIn, (req, res) => {
   res.sendFile(path.join(__dirname, "../client", "login.html"));
 });
 
-app.get("/logout", (req, res) => {
+app.get("/logout", checkLoggedIn, (req, res) => {
   req.logout();
   res.redirect("/login");
 });
