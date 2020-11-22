@@ -20,7 +20,7 @@ const strategy = new LocalStrategy(async (username, password, done) => {
   if(!(await findUser(username))) {
     return done(null, false, { "message": "Wrong username" });
   }
-  if(!await validatePassword(username, password)) {
+  if(!(await validatePassword(username, password))) {
     await new Promise((r) => setTimeout(r, 2000));
     return done(null, false, { "message": "Wrong password" });
   }
