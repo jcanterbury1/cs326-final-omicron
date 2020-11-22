@@ -66,7 +66,7 @@ async function validatePassword(name, pwd) {
     return false;
   }
   let fetch = await connectAndRun(db => db.any("SELECT hash, salt FROM users WHERE username=($1);", [name]));
-    if (!mc.check(pwd, fetch[0].salt, fetch[0].hash)) {
+    if (!mc.check(pwd, await fetch[0].salt, await fetch[0].hash)) {
     return false;
   }
   return true;
