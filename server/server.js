@@ -20,7 +20,7 @@ const strategy = new LocalStrategy(async (username, password, done) => {
   if(!(await findUser(username))) {
     return done(null, false, { "message": "Wrong username" });
   }
-  if(!validatePassword(username, password)) {
+  if(!await validatePassword(username, password)) {
     await new Promise((r) => setTimeout(r, 2000));
     return done(null, false, { "message": "Wrong password" });
   }
@@ -65,7 +65,8 @@ async function validatePassword(name, pwd) {
   if(!(await findUser(name))) {
     return false;
   }
-  if(!mc.check(pwd, (await db.one("select salt from users where username=($1);", [name])).salt, (await db.one("select hash from users where username=($1);", [name])).hash)) {
+  let fetch = await connectAndRun(db => db.any("SELECT hash, salt FROM users WHERE username=($1);", [name]));
+    if (!mc.check(pwd, fetch[0].salt, fetch[0].hash)) {
     return false;
   }
   return true;
