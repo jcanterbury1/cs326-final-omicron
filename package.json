@@ -24,23 +24,10 @@
       "consistent-return": "error",
       "no-var": "error",
       "eqeqeq": "error",
-      "semi": [
-        "error",
-        "always"
-      ],
-      "curly": [
-        "warn",
-        "all"
-      ],
-      "prefer-const": [
-        "warn",
-        {}
-      ],
-      "quotes": [
-        2,
-        "double",
-        "avoid-escape"
-      ]
+      "semi": ["error", "always"],
+      "curly": ["warn", "all"],
+      "prefer-const": ["warn", {}],
+      "quotes": [2, "double", "avoid-escape"]
     }
   },
   "dependencies": {
