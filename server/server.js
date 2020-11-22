@@ -11,7 +11,7 @@ const path = require("path");
 const db = require("pg-promise")()(process.env.DATABASE_URL);
 
 const session = {
-  secret: process.env.SECRET
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false
 };
