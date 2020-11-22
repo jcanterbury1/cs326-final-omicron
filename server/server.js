@@ -27,6 +27,23 @@ const strategy = new LocalStrategy(async (username, password, done) => {
   return done(null, username);
 });
 
+async function connectAndRun(task) {
+  let connection = null;
+
+  try {
+      connection = await db.connect();
+      return await task(connection);
+  } catch (e) {
+      throw e;
+  } finally {
+      try {
+          connection.done();
+      } catch(ignored) {
+
+      }
+  }
+}
+
 const app = express();
 app.listen(process.env.PORT);
 app.use(expressSession(session));
@@ -46,47 +63,58 @@ app.use(express.urlencoded({ "extended": false }));
 
 
 
+
 //Ryan's endpoints and functions
-async function findUser(name) {
-  return ((await db.any("select * from users where username=($1);", [name])).length !== 0);
+
+// Returns true iff the user exists.
+async function findUser(username) {
+  return (await connectAndRun(db => db.any("SELECT * FROM Users WHERE username=($1);", [username]))).length === 1;
 }
+
+// Returns true iff the password is the one we have stored (in plaintext = bad but easy).
+async function validatePassword(name, pwd) {
+  if (!(await findUser(name))) {
+return false;
+  }
+  let fetch = await connectAndRun(db => db.any("SELECT hash, salt FROM Users WHERE username=($1);", [name]));
+  if (!mc.check(pwd, fetch[0].salt, fetch[0].hash)) {
+return false;
+  }
+  return true;
+}
+
+// Add a user to the "database".
 
 async function addUser(name, pwd) {
-  if(await findUser(name)) {
-    return false;
+  if (await findUser(name)) {
+return false;
   }
   const [salt, hash] = mc.hash(pwd);
-  await db.none("insert into users values ($1,$2,$3);", [name, hash, salt]);
-  await db.none("insert into likes values ($1);", [name]);
+  console.log(salt);
+  await connectAndRun(db => db.none("INSERT INTO Users VALUES ($1, $2, $3);", [name, hash, salt]));
   return true;
 }
 
-async function validatePassword(name, pwd) {
-  if(!(await findUser(name))) {
-    return false;
-  }
-    if (!mc.check(pwd, (await db.one("select salt from users where username=($1);", [name]))[0].salt, (await db.one("select hash from users where username=($1);", [name]))[0].hash)) {
-    return false;
-  }
-  return true;
-}
+// Routes
 
 function checkLoggedIn(req, res, next) {
-  if(req.isAuthenticated()) {
-    next();
-  } else {
-    res.redirect("/login");
-  }
-}
-
-function checkNotLoggedIn(req, res, next) {
-  if (!req.isAuthenticated()) {
+  if (req.isAuthenticated()) {
 // If we are authenticated, run the next route.
 next();
   } else {
 // Otherwise, redirect to the login page.
-res.redirect('/home');
+res.redirect('/login');
   }
+}
+
+function checkNotLoggedIn(req, res, next) {
+if (!req.isAuthenticated()) {
+// If we are authenticated, run the next route.
+next();
+} else {
+// Otherwise, redirect to the login page.
+res.redirect('/home');
+}
 }
 
 app.post("/login", passport.authenticate("local", {
