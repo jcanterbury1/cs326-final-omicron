@@ -80,6 +80,16 @@ function checkLoggedIn(req, res, next) {
   }
 }
 
+function checkNotLoggedIn(req, res, next) {
+  if (!req.isAuthenticated()) {
+// If we are authenticated, run the next route.
+next();
+  } else {
+// Otherwise, redirect to the login page.
+res.redirect('/home');
+  }
+}
+
 app.post("/login", passport.authenticate("local", {
   "successRedirect": "/home",
   "failureRedirect": "/login"
@@ -242,7 +252,7 @@ app.get("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-app.get("/register", (req, res) => {
+app.get("/register", checkNotLoggedIn, (req, res) => {
   res.sendFile(path.join(__dirname, "../client", "create.html"));
 });
 
