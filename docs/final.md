@@ -40,11 +40,11 @@ New listing page- Allows users to add a new listing for a given category. There 
 
 Write review ($ value)- For grocery stores only, allows users to submit a review with a relative price rating.
 
-![HTML](pictures/writereview1.png)
+![HTML](pictures/writereviews1.png)
 
 Write review (actual cost)- For other categories excluding grocery stores, allows users to submit a review with a hard price value.
 
-![HTML](pictures/writereview.png)
+![HTML](pictures/writereviews.png)
 
 ![HTML](pictures/apis.png)
 
