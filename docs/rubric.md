@@ -1,1 +1,1 @@
-![Drawing](pictures/reviews-wireframe.png)
+![HTML](pictures/rubric.png)
