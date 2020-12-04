@@ -36,7 +36,7 @@ Read review page- Contains a list of all written reviews for a specific location
 
 New listing page- Allows users to add a new listing for a given category. There is one for each category.
 
-![HTML](pictures/newlistings.png)
+![HTML](pictures/newlisting.png)
 
 Write review ($ value)- For grocery stores only, allows users to submit a review with a relative price rating.
 
